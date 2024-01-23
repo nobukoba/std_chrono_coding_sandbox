@@ -4,35 +4,23 @@
 #include <typeinfo>
 
 int main(int argc,char *argv[]){
-  std::cout << "here" << std::endl;
-    std::chrono::system_clock::time_point start = std::chrono::system_clock::now();
+  std::chrono::system_clock::time_point  p_time_point;
+  std::chrono::system_clock::duration    p_duration;
+  std::chrono::system_clock::period      p_period;
+  std::cout << "typeid(p_time_point).name(): " << typeid(p_time_point).name() << std::endl;
+  std::cout << "typeid(p_duration  ).name(): " << typeid(p_duration  ).name() << std::endl;
+  std::cout << "typeid(p_period    ).name(): " << typeid(p_period    ).name() << std::endl;
+  std::string cmd1 = std::string("c++filt -t ") + typeid(p_time_point).name();
+  std::string cmd2 = std::string("c++filt -t ") + typeid(p_duration  ).name();
+  std::string cmd3 = std::string("c++filt -t ") + typeid(p_period    ).name();
+  system(cmd1.c_str());
+  system(cmd2.c_str());
+  system(cmd3.c_str());
 
-    for ( long i = 0; i < 100000000; ++i ) {
-      sqrt( 123.456L );
-    }
+  std::cout << "typeid(std::chrono::system_clock::period::num).name(): " << typeid(std::chrono::system_clock::period::num).name() << std::endl;
+  std::cout << "typeid(std::chrono::system_clock::period::den).name(): " << typeid(std::chrono::system_clock::period::den).name() << std::endl;
+  std::cout << "std::chrono::system_clock::period::num: " << std::chrono::system_clock::period::num << std::endl;
+  std::cout << "std::chrono::system_clock::period::den: " << std::chrono::system_clock::period::den << std::endl;
 
-    std::cout << "typeid(start).name(): " << typeid(start).name() << std::endl;
-    std::string cmd = std::string("c++filt -t ") + typeid(start).name();
-    system(cmd.c_str());
-    
-    std::chrono::duration<double> sec = std::chrono::system_clock::now() - start;
-    std::cout << "took " << sec.count() << " seconds\n";
-
-    auto start2 = std::chrono::high_resolution_clock::now();
-
-    for ( long i = 0; i < 100000000; ++i ) {
-      sqrt( 123.456L );
-    }
-
-    auto  end2 = std::chrono::high_resolution_clock::now();
-    std::cout << "typeid(start2).name(): " << typeid(start2).name() << std::endl;
-
-    typedef std::chrono::nanoseconds ns;
-    ns d = std::chrono::duration_cast<ns>(end2 - start2);
-
-    // d now holds the number of milliseconds from start to end.
-
-    std::cout << d.count() << "ns\n";
- 
-    return 0;
+  return 0;
 }
