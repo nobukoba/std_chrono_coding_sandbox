@@ -1,13 +1,14 @@
 #CXX = clang++
 CXX = g++
-LIBDIR = ${HOME}/nestdaq/lib
-LDFLAGS = -L$(LIBDIR) -Wl,-rpath,$(LIBDIR)
 
-PROGRAM = std_chrono_coding_sandbox
+EXE1 = std_chrono_coding_sandbox
+EXE2 = std_chrono_multi_platforms
 
-all: $(PROGRAM)
-$(PROGRAM): $(PROGRAM).o
-	$(CXX) $(LDFLAGS) $^ -o $(PROGRAM)
+all: $(EXE1) $(EXE2)
+$(EXE1): $(EXE1).o
+	$(CXX) $(LDFLAGS) $^ -o $@
+$(EXE2): $(EXE2).o
+	$(CXX) $(LDFLAGS) $^ -o $@
 clean:
 	rm -f *.o *~
-	rm -f $(PROGRAM)
+	rm -f $(EXE1) $(EXE2)
